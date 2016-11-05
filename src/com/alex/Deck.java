@@ -1,7 +1,5 @@
 package com.alex;
 
-import sun.awt.image.ImageWatched;
-
 import java.util.Collections;
 import java.util.LinkedList;
 
@@ -9,13 +7,14 @@ public class Deck {
 
 
     private String[] suits = {"Hearts", "Clubs", "Spades", "Diamonds"};
-    private String[] values = {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"};
+    //jack = 11, queen = 12, king = 13, ace = 14
+    private int[] values = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
 
     private LinkedList<Card> deck = new LinkedList<>();
 
     public Deck(){
         for (String suit : suits){
-            for (String value : values){
+            for (int value : values){
                 deck.add(new Card(suit, value));
             }
         }
@@ -23,11 +22,12 @@ public class Deck {
         Collections.shuffle(deck);
     }
 
+    //agram doesn't play with jacks, queens, kings, 2s, or the ace of spades.
     public void makeAgramDeck(){
-            deck.removeIf(card -> card.getValue() == "Jack"
-                    || card.getValue() == "Queen"
-                    || card.getValue() == "King"
-                    || card.getValue() == "2"
+            deck.removeIf(card -> card.getValue() == 11
+                    || card.getValue() == 12
+                    || card.getValue() == 13
+                    || card.getValue() == 2
                     || card.toString().equals("Ace of Spades"));
 
         Collections.shuffle(deck);
@@ -44,6 +44,10 @@ public class Deck {
     public int cardsLeft(){
         return deck.size();
     }
+
+
+
+
 
 
 

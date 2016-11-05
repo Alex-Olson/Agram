@@ -3,19 +3,23 @@ package com.alex;
 
 public class Card {
 
-    private String value;
+    private int value;
     private String suit;
 
-    public Card (String suit, String value){
+    public Card(){
+
+    }
+
+    public Card (String suit, int value){
         this.value = value;
         this.suit = suit;
     }
 
-    public String getValue() {
+    public int getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(int value) {
         this.value = value;
     }
 
@@ -29,6 +33,20 @@ public class Card {
 
     @Override
     public String toString(){
-        return (value + " of " + suit);
+        String valueString;
+
+        if (value == 11){
+            valueString = "Jack";
+        } else if (value == 12){
+            valueString = "Queen";
+        } else if (value == 13){
+            valueString = "King";
+        } else if (value == 14){
+            valueString = "Ace";
+        } else {
+            valueString = Integer.toString(value);
+        }
+
+        return (valueString + " of " + suit);
     }
 }
