@@ -15,7 +15,7 @@ public class Main {
 
         rng = new Random();
 
-        //todo: make a modified deck to play with
+        //make a modified deck to play with
         agramDeck = new Deck();
         agramDeck.makeAgramDeck();
 
@@ -31,14 +31,14 @@ public class Main {
             }
         }
 
-        //todo: give each player 6 cards to play
+        //give each player 6 cards to play
         for (int i = 0; i < 6; i++) {
             for (Player p : players)
                 p.addToHand(agramDeck.drawCard());
         }
 
 
-        //todo: gameplay loop
+        //gameplay loop
         //the game no matter what will last six turns; i'll use a for loop for the game turns
         //i'll set the human to the "round winner" so they can start round 1; after that the winner will start
         players[0].setRoundWinner(true);
@@ -46,7 +46,7 @@ public class Main {
 
             System.out.println("Turn " + (i + 1));
 
-            //todo: determine order of turns for round
+            //determine order of turns for round
             for (Player p : players){
                 p.setPlayedTurn(false);
             }

@@ -6,9 +6,7 @@ public class Card {
     private int value;
     private String suit;
 
-    public Card(){
 
-    }
 
     public Card (String suit, int value){
         this.value = value;
