@@ -110,6 +110,7 @@ public class Main {
         for (Card c : p.getHand()) {
             System.out.print(c.toString() + "  ");
         }
+        System.out.println();
 
         Boolean validPlay = false;
         while (!validPlay) {
@@ -138,13 +139,12 @@ public class Main {
     }
 
     public static void cpuTurn(Player p){
-        if (activeCard == null){
-            p.setPlayedCard(p.getHand().get(rng.nextInt(p.getHand().size())));
-            activeCard = p.getPlayedCard();
-        } else if (p.suitCardsInHand(activeCard.getSuit()) == 0) {
-            //if cpu doesn't have a card that matches suit...
-            //..play a random card todo:use better strategy later
-            p.setPlayedCard(p.getHand().get(rng.nextInt(p.getHand().size())));
+        if (activeCard == null || p.suitCardsInHand(activeCard.getSuit()) == 0) {
+            //if the cpu is the one setting the active card or doesn't have a card that matches suit...
+            playWeakCard(p);
+            if (activeCard == null){
+                activeCard = p.getPlayedCard();
+            }
         } else if (p.suitCardsInHand(activeCard.getSuit()) == 1) {
             //if cpu has one card of the suit, they are forced to play it.
             for (Card c : p.getHand()) {
@@ -174,6 +174,40 @@ public class Main {
             p.setPlayedCard(selectedCard);
         }
         System.out.println(p.getName() + " plays " + p.getPlayedCard().toString());
+    }
+
+    public static void playWeakCard(Player p){
+        LinkedList<Card> cards = new LinkedList<Card>();
+        Card selectedCard = null;
+
+        // first remove any cards that have a matching suit to another in hand to save for later on in the game
+        for (Card c : p.getHand()) {
+            if (p.suitCardsInHand(c.getSuit()) < 2) {
+                cards.add(c);
+            }
+        }
+
+        //play a weaker card to save better ones for later. if your hand has only suited pairs, just play the weakest card out of all of them
+        if (cards.size() == 0){
+            for (Card card : p.getHand()) {
+                if (selectedCard == null) {
+                    selectedCard = card;
+                } else if (selectedCard.getValue() > card.getValue()) {
+                    selectedCard = card;
+                }
+            }
+        } else {
+            //if you have single suited cards, pick the weakest one out of those
+            for (Card card : cards){
+                if (selectedCard == null) {
+                    selectedCard = card;
+                } else if (selectedCard.getValue() > card.getValue()) {
+                    selectedCard = card;
+                }
+
+            }
+        }
+        p.setPlayedCard(selectedCard);
     }
 
 }
